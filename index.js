@@ -40,7 +40,7 @@ async function read() {
 
 function connectGATT() {
   return bluetoothDevice.gatt
-    .connected()
+    .connect()
     .then(server => {
       console.log('Connecting to GATT protocol...');
       return server.getPrimaryService(POWER_SERVICE);
