@@ -59,6 +59,8 @@ async function connectGATT() {
       handleValueChange
     );
 
+    gattCharacteristic = characteristic;
+
     function handleValueChange(event) {
       let value = event.target.value;
       // power.textContent = value;
