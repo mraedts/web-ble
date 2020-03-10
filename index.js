@@ -1,8 +1,8 @@
-const POWER_SERVICE = '0x1818';
+const POWER_SERVICE = 'cycling_power';
 
-const POWER_MEASUREMENT = '0x2A63';
+const POWER_MEASUREMENT = 'cycling_power_measurement';
 
-const POWER_CONTROL = '0x2A66';
+const POWER_CONTROL = 'cycling_power_control_point';
 
 const button = document.getElementById('textbutton');
 const power = document.getElementById('power');
