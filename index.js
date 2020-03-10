@@ -63,7 +63,7 @@ async function connectGATT() {
 
     function handleValueChange(event) {
       let value = event.target.value;
-      power.textContent = value.getInt16(1);
+      power.textContent = value.toString();
       console.log(value);
     }
   } catch (err) {
