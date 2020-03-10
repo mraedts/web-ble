@@ -4,6 +4,10 @@ const POWER_MEASUREMENT = 'cycling_power_measurement';
 
 const POWER_CONTROL = 'cycling_power_control_point';
 
+const HEART_RATE = 'heart_rate';
+
+const HEART_RATE_MEASUREMENT = 'heart_rate_measurement';
+
 const button = document.getElementById('textbutton');
 const power = document.getElementById('power');
 
@@ -23,7 +27,7 @@ async function getDevice() {
     };
 
     const options = {
-      filters: [{ services: [POWER_SERVICE] }]
+      filters: [{ services: [HEART_RATE] }]
     };
 
     navigator.bluetooth.requestDevice(options).then(device => {
@@ -47,11 +51,11 @@ async function connectGATT() {
       .connect()
       .then(server => {
         console.log('Connecting to GATT protocol...');
-        return server.getPrimaryService(POWER_SERVICE);
+        return server.getPrimaryService(HEART_RATE);
       })
       .then(service => {
         console.log('Retrieving GATT Characteristic...');
-        return service.getCharacteristic(POWER_MEASUREMENT);
+        return service.getCharacteristic(HEART_RATE_MEASUREMENT);
       })
       .then(characteristic => {
         console.log('Setting Characteristic listener...');
@@ -72,6 +76,11 @@ async function connectGATT() {
 }
 
 async function main() {
+  if (!navigator.bluetooth) {
+    window.alert('Bluetooth is not available.');
+    return;
+  }
+
   await getDevice();
   read();
 }
