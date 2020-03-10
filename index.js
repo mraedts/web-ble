@@ -41,6 +41,7 @@ async function read() {
 }
 
 async function connectGATT() {
+  //
   try {
     return bluetoothDevice.gatt
       .connect()
