@@ -20,12 +20,13 @@ function BLEIsAvailable() {
 
 async function getDevice() {
   try {
-    const params = {
+    const options = {
       acceptAllDevices: true
     };
 
-    const device = await navigator.bluetooth.requestDevice(params);
-    bluetoothDevice = device;
+    navigator.bluetooth.requestDevice(options).then(device => {
+      bluetoothDevice = device;
+    });
   } catch (err) {
     throw err;
   }
