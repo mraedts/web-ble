@@ -23,7 +23,7 @@ async function getDevice() {
     };
 
     const options = {
-      filters: [{ services: [HEART_RATE_SERVICE] }]
+      filters: [{ services: [POWER_SERVICE] }]
     };
 
     navigator.bluetooth.requestDevice(options).then(device => {
@@ -45,21 +45,21 @@ async function connectGATT() {
     const server = await bluetoothDevice.gatt.connect();
     console.log('Connecting to GATT protocol...');
 
-    const service = await server.getPrimaryService(HEART_RATE_SERVICE);
+    const service = await server.getPrimaryService(POWER_SERVICE);
     console.log('Retrieving GATT Characteristic...');
 
-    const characteristic = service.getCharacteristic(HEART_RATE_MEASUREMENT);
+    const characteristic = service.getCharacteristic(POWER_MEASUREMENT);
 
     console.log('Setting Characteristic listener...');
-    gattCharacteristic = characteristic;
-    gattCharacteristic.addEventListener(
+
+    characteristic.addEventListener(
       'characteristicvaluechanged',
       handleValueChange
     );
 
     function handleValueChange(event) {
-      let value = event.target.value.getUint8(0);
-      console.log(value);
+      let value = event.target.value.getUint8(1);
+      power.textContent = value;
     }
   } catch (err) {
     throw err;
