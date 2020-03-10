@@ -1,7 +1,6 @@
-const POWER_SERVICE = 'org.bluetooth.service.cycling_power';
+const POWER_SERVICE = '0x1818';
 
-const POWER_MEASUREMENT =
-  'org.bluetooth.characteristic.cycling_power_measurement';
+const POWER_MEASUREMENT = '0x2A66';
 
 const POWER_CONTROL =
   'org.bluetooth.characteristic.cycling_power_control_point';
