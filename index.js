@@ -53,6 +53,8 @@ async function connectGATT() {
         return service.getCharacteristic(POWER_MEASUREMENT);
       })
       .then(characteristic => {
+        console.log(characteristic);
+        console.log(characteristic.readValue());
         gattCharacteristic = characteristic;
         gattCharacteristic.addEventListener(
           'characteristicvaluechanged',
