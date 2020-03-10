@@ -41,23 +41,27 @@ async function read() {
   }
 }
 
-function connectGATT() {
-  return bluetoothDevice.gatt
-    .connect()
-    .then(server => {
-      console.log('Connecting to GATT protocol...');
-      return server.getPrimaryService(POWER_SERVICE);
-    })
-    .then(service => {
-      return service.getCharacteristic(POWER_MEASUREMENT);
-    })
-    .then(characteristic => {
-      gattCharacteristic = characteristic;
-      gattCharacteristic.addEventListener(
-        'characteristicvaluechanged',
-        char => {
-          gattCharacteristic = characteristic;
-        }
-      );
-    });
+async function connectGATT() {
+  try {
+    return bluetoothDevice.gatt
+      .connect()
+      .then(server => {
+        console.log('Connecting to GATT protocol...');
+        return server.getPrimaryService(POWER_SERVICE);
+      })
+      .then(service => {
+        return service.getCharacteristic(POWER_MEASUREMENT);
+      })
+      .then(characteristic => {
+        gattCharacteristic = characteristic;
+        gattCharacteristic.addEventListener(
+          'characteristicvaluechanged',
+          char => {
+            gattCharacteristic = characteristic;
+          }
+        );
+      });
+  } catch (err) {
+    throw err;
+  }
 }
