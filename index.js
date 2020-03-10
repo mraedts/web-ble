@@ -1,9 +1,8 @@
 const POWER_SERVICE = '0x1818';
 
-const POWER_MEASUREMENT = '0x2A66';
+const POWER_MEASUREMENT = '0x2A63';
 
-const POWER_CONTROL =
-  'org.bluetooth.characteristic.cycling_power_control_point';
+const POWER_CONTROL = '0x2A66';
 
 const button = document.getElementById('textbutton');
 const power = document.getElementById('power');
