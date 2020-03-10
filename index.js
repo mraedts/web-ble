@@ -18,8 +18,12 @@ function BLEIsAvailable() {
 
 async function getDevice() {
   try {
-    const options = {
+    const all = {
       acceptAllDevices: true
+    };
+
+    const options = {
+      filters: [{ services: [POWER_SERVICE] }]
     };
 
     navigator.bluetooth.requestDevice(options).then(device => {
