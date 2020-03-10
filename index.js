@@ -60,7 +60,7 @@ async function connectGATT() {
       .then(characteristic => {
         console.log('Setting Characteristic listener...');
         gattCharacteristic = characteristic;
-        characteristic.addEventListener(
+        gattCharacteristic.addEventListener(
           'characteristicvaluechanged',
           handleValueChange
         );
