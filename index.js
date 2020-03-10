@@ -7,7 +7,7 @@ const POWER_CONTROL =
   'org.bluetooth.characteristic.cycling_power_control_point';
 
 const button = document.getElementById('textbutton');
-const power = document.getElementById('power')
+const power = document.getElementById('power');
 
 let bluetoothDevice;
 
@@ -31,31 +31,29 @@ async function getDevice() {
   }
 }
 
-
-function read() {
+async function read() {
   if (bluetoothDevice != undefined) {
-    const connection = await bluetoothDevice.connectGATT()    
-
+    const connection = await bluetoothDevice.connectGATT();
   }
 }
 
-
 function connectGATT() {
-
-  return bluetoothDevice.gatt.connected()
+  return bluetoothDevice.gatt
+    .connected()
     .then(server => {
-    console.log('Connecting to GATT protocol...')
-      return server.getPrimaryService(POWER_SERVICE)
+      console.log('Connecting to GATT protocol...');
+      return server.getPrimaryService(POWER_SERVICE);
     })
     .then(service => {
-      return service.getCharacteristic(POWER_MEASUREMENT)
+      return service.getCharacteristic(POWER_MEASUREMENT);
     })
     .then(characteristic => {
-      gattCharacteristic = characteristic
-      gattCharacteristic.addEventListener('characteristicvaluechanged', char => {
-        power.textContent = char.toString()
-      })
-
-    })
+      gattCharacteristic = characteristic;
+      gattCharacteristic.addEventListener(
+        'characteristicvaluechanged',
+        char => {
+          power.textContent = char.toString();
+        }
+      );
+    });
 }
-
