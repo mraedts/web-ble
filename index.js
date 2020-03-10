@@ -48,7 +48,7 @@ async function connectGATT() {
     const service = await server.getPrimaryService(POWER_SERVICE);
     console.log('Retrieving GATT Characteristic...');
 
-    const characteristic = service.getCharacteristic(POWER_MEASUREMENT);
+    const characteristic = await service.getCharacteristic(POWER_MEASUREMENT);
 
     console.log('Setting Characteristic listener...');
 
