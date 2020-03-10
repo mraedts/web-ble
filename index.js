@@ -36,7 +36,8 @@ async function getDevice() {
 
 async function read() {
   if (bluetoothDevice != undefined) {
-    const connection = await bluetoothDevice.connectGATT();
+    await connectGATT();
+    console.log(gattCharacteristic.readValue());
   }
 }
 
@@ -55,7 +56,7 @@ function connectGATT() {
       gattCharacteristic.addEventListener(
         'characteristicvaluechanged',
         char => {
-          power.textContent = char.toString();
+          gattCharacteristic = characteristic;
         }
       );
     });
