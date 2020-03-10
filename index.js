@@ -40,7 +40,7 @@ async function getDevice() {
 
 async function read() {
   if (bluetoothDevice != undefined) {
-    await connectGATT();
+    connectGATT();
   }
 }
 
@@ -87,3 +87,18 @@ async function main() {
 }
 
 main();
+
+function onReadBatteryLevelButtonClick() {
+  return (bluetoothDevice ? Promise.resolve() : requestDevice())
+    .then(_ => {
+      log('Reading Battery Level...');
+      return gattCharacteristic.readValue();
+    })
+    .catch(error => {
+      log('Argh! ' + error);
+    });
+}
+
+power.addEventListener('click', () => {
+  onReadBatteryLevelButtonClick();
+});
