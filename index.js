@@ -63,20 +63,20 @@ async function connectGATT() {
 
     function handleValueChange(event) {
       let value = event.target.value;
-      (power.textContent = value.getInt16(0)),
+      power.textContent =
+        value.getInt16(0) +
+        ' + ' +
         value.getInt16(1) +
-          ' + ' +
-          value.getInt16(2) +
-          ' + ' +
-          value.getInt16(3) +
-          ' + ' +
-          value.getInt16(4) +
-          ' + ' +
-          value.getInt16(5) +
-          ' + ' +
-          value.getInt16(6) +
-          ' + ' +
-          value.getInt16(7);
+        ' + ' +
+        value.getInt16(2) +
+        ' + ' +
+        value.getInt16(3) +
+        ' + ' +
+        value.getInt16(4) +
+        ' + ' +
+        value.getInt16(5) +
+        ' + ' +
+        value.getInt16(6);
       console.log(value);
     }
   } catch (err) {
