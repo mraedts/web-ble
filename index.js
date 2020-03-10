@@ -1,11 +1,7 @@
 const POWER_SERVICE = 'cycling_power';
-
 const POWER_MEASUREMENT = 'cycling_power_measurement';
-
 const POWER_CONTROL = 'cycling_power_control_point';
-
-const HEART_RATE = 'heart_rate';
-
+const HEART_RATE_SERVICE = 'heart_rate';
 const HEART_RATE_MEASUREMENT = 'heart_rate_measurement';
 
 const button = document.getElementById('textbutton');
@@ -27,7 +23,7 @@ async function getDevice() {
     };
 
     const options = {
-      filters: [{ services: [HEART_RATE] }]
+      filters: [{ services: [HEART_RATE_SERVICE] }]
     };
 
     navigator.bluetooth.requestDevice(options).then(device => {
@@ -45,26 +41,21 @@ async function read() {
 }
 
 async function connectGATT() {
-  //
   try {
-    return bluetoothDevice.gatt
-      .connect()
-      .then(server => {
-        console.log('Connecting to GATT protocol...');
-        return server.getPrimaryService(HEART_RATE);
-      })
-      .then(service => {
-        console.log('Retrieving GATT Characteristic...');
-        return service.getCharacteristic(HEART_RATE_MEASUREMENT);
-      })
-      .then(characteristic => {
-        console.log('Setting Characteristic listener...');
-        gattCharacteristic = characteristic;
-        gattCharacteristic.addEventListener(
-          'characteristicvaluechanged',
-          handleValueChange
-        );
-      });
+    const server = await bluetoothDevice.gatt.connect();
+    console.log('Connecting to GATT protocol...');
+
+    const service = await server.getPrimaryService(HEART_RATE_SERVICE);
+    console.log('Retrieving GATT Characteristic...');
+
+    const characteristic = service.getCharacteristic(HEART_RATE_MEASUREMENT);
+
+    console.log('Setting Characteristic listener...');
+    gattCharacteristic = characteristic;
+    gattCharacteristic.addEventListener(
+      'characteristicvaluechanged',
+      handleValueChange
+    );
 
     function handleValueChange(event) {
       let value = event.target.value.getUint8(0);
@@ -80,9 +71,6 @@ async function main() {
     window.alert('Bluetooth is not available.');
     return;
   }
-
-  await getDevice();
-  read();
 }
 
 main();
