@@ -37,7 +37,6 @@ async function getDevice() {
 async function read() {
   if (bluetoothDevice != undefined) {
     await connectGATT();
-    console.log(gattCharacteristic.readValue());
   }
 }
 
