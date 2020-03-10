@@ -21,7 +21,7 @@ function BLEIsAvailable() {
 async function getDevice() {
   try {
     const params = {
-      returnAllDevices: true
+      acceptAllDevices: true
     };
 
     const device = await navigator.bluetooth.requestDevice(params);
