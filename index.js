@@ -11,6 +11,8 @@ let bluetoothDevice;
 
 let gattCharacteristic;
 
+let tempval;
+
 function BLEIsAvailable() {
   if (navigator.bluetooth) return true;
   return false;
@@ -51,15 +53,16 @@ async function connectGATT() {
     const characteristic = await service.getCharacteristic(POWER_MEASUREMENT);
 
     console.log('Setting Characteristic listener...');
-
+    characteristic.startNotifications();
     characteristic.addEventListener(
       'characteristicvaluechanged',
       handleValueChange
     );
 
     function handleValueChange(event) {
-      let value = event.target.value.getUint8(1);
-      power.textContent = value;
+      let value = event.target.value;
+      // power.textContent = value;
+      console.log(value);
     }
   } catch (err) {
     throw err;
