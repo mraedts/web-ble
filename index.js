@@ -3,6 +3,9 @@ const POWER_MEASUREMENT = 'cycling_power_measurement';
 const POWER_CONTROL = 'cycling_power_control_point';
 const HEART_RATE_SERVICE = 'heart_rate';
 const HEART_RATE_MEASUREMENT = 'heart_rate_measurement';
+const FITNESS_MACHINE_SERVICE = 'fitness_machine';
+const FITNESS_CONTROL_POINT = 'fitness_machine_control_point';
+const BIKE_DATA = 'indoor_bike_data';
 
 const button = document.getElementById('textbutton');
 const power = document.getElementById('power');
@@ -25,7 +28,7 @@ async function getDevice() {
     };
 
     const options = {
-      filters: [{ services: [POWER_SERVICE] }]
+      filters: [{ services: [FITNESS_MACHINE_SERVICE] }]
     };
 
     navigator.bluetooth.requestDevice(options).then(device => {
@@ -47,10 +50,10 @@ async function connectGATT() {
     const server = await bluetoothDevice.gatt.connect();
     console.log('Connecting to GATT protocol...');
 
-    const service = await server.getPrimaryService(POWER_SERVICE);
+    const service = await server.getPrimaryService(FITNESS_MACHINE_SERVICE);
     console.log('Retrieving GATT Characteristic...');
 
-    const characteristic = await service.getCharacteristic(POWER_MEASUREMENT);
+    const characteristic = await service.getCharacteristic(BIKE_DATA);
 
     console.log('Setting Characteristic listener...');
     characteristic.startNotifications();
@@ -71,7 +74,13 @@ async function connectGATT() {
   }
 }
 
-function parseBleData() {}
+function parseBleData(dataView) {
+  let result = {};
+
+  result.instantPower = dataView.getInt16(1);
+
+  return result;
+}
 
 async function main() {
   if (!navigator.bluetooth) {
@@ -82,17 +91,4 @@ async function main() {
 
 main();
 
-function onReadBatteryLevelButtonClick() {
-  return (bluetoothDevice ? Promise.resolve() : requestDevice())
-    .then(_ => {
-      log('Reading Battery Level...');
-      return gattCharacteristic.readValue();
-    })
-    .catch(error => {
-      log('Argh! ' + error);
-    });
-}
-
-power.addEventListener('click', () => {
-  onReadBatteryLevelButtonClick();
-});
+button.addEventListener('click', () => {});
