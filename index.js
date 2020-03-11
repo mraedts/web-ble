@@ -63,26 +63,14 @@ async function connectGATT() {
 
     function handleValueChange(event) {
       let value = event.target.value;
-      power.textContent =
-        value.getInt16(0) +
-        ' + ' +
-        value.getInt16(1) +
-        ' + ' +
-        value.getInt16(2) +
-        ' + ' +
-        value.getInt16(3) +
-        ' + ' +
-        value.getInt16(4) +
-        ' + ' +
-        value.getInt16(5) +
-        ' + ' +
-        value.getInt16(6);
-      console.log(value);
+      power.textContent = value.getInt16(1);
     }
   } catch (err) {
     throw err;
   }
 }
+
+function parseBleData() {}
 
 async function main() {
   if (!navigator.bluetooth) {
