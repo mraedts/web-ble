@@ -63,7 +63,12 @@ async function connectGATT() {
 
     function handleValueChange(event) {
       let value = event.target.value;
+<<<<<<< HEAD
       power.textContent = value.getInt16(1);
+=======
+      power.textContent = value.getInt16(1)
+      console.log(value);
+>>>>>>> faa787112962ec33715dc48749537991fac71f89
     }
   } catch (err) {
     throw err;
